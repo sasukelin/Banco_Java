@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class banco {
+public class AplicacionBancariaJava {
 
     public static void main(String[] args) {
         HashMap<String, Double> cuentas = new HashMap<>();
@@ -22,7 +22,7 @@ public class banco {
             opcion = scanner.nextInt();
 
             String numeroCuenta;
-            double saldo;
+            double saldo = 0;
 
             switch (opcion) {
                 case 1:
@@ -78,31 +78,21 @@ public class banco {
                         System.out.println("Cuenta no encontrada.");
                     }
                     break;
-                case 5:
-                    System.out.println("Ingrese el número de su cuenta:");
+                     case 5:
+                    System.out.println("Ingrese su número de cuenta:");
                     numeroCuenta = scanner.next();
                     if (cuentas.containsKey(numeroCuenta)) {
-                        saldo = cuentas.get(numeroCuenta);
                         System.out.println("Se ha encontrado su cuenta ");
-                    } else {
-                        System.out.println("Cuenta no encontrada.");
-                    }
-                    break;
-                    else (cuentas.containsKey(numeroCuenta)) {
-                        System.out.println("Ingrese el número de cuenta al que desea hacer la transacción:");
-                        double cantidadRetiro = scanner.nextDouble();
                         saldo = cuentas.get(numeroCuenta);
-
-                        if (cantidadRetiro >= saldo) {
-                            saldo -= cantidadRetiro;
-                            cuentas.put(numeroCuenta, saldo);
-                            System.out.println("¡Transacción realizada!");
-                            System.out.println("se desconto el monto"+ saldo);
-                        } else {
-                            System.out.println("Fondos insuficientes.");
-                        }
+                        System.out.println("Su saldo es: " + saldo);
+                        System.out.println("Ingrese la cuenta destinataria para la transacción:");
+                        double cantidadTransaccion = scanner.nextDouble();
+                        saldo = cuentas.get(numeroCuenta) + cantidadTransaccion;
+                       
+                        cuentas.put(numeroCuenta, saldo);
+                        System.out.println("Cuenta encontrada, ingrese el valor de la transacción");
                     } else {
-                        System.out.println("Cuenta no encontrada.");
+                        System.out.println("Cuenta no encontrada, no se puede realizar el envio.");
                     }
                     break;
                 case 0:

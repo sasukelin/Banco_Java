@@ -42,9 +42,9 @@ public class Main {
                         while (opcion != 0) {
                             System.out.println("Por favor, elija una opción:");
                             System.out.println("1. Consultar saldo");
-                            System.out.println("2. Depositar dinero");
+                            System.out.println("2. Ingresar dinero");
                             System.out.println("3. Retirar dinero");
-                            System.out.println("4. Realizar transacción");
+                            System.out.println("4. Realizar una transacción");
                             System.out.println("0. Salir");
 
                             opcion = scanner.nextInt();

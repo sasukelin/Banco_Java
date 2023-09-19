@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
+
 @SuppressWarnings("ALL")
 public class Main {
 
@@ -12,9 +13,8 @@ public class Main {
         int opcion = -1;
         String numeroCuenta;
         double saldo = 0;
-        System.out.println("Bienvenido a la Aplicación Bancaria en Java");
+        System.out.println("Bienvenido a la Aplicación Bancaria Wolf Bank");
         while (option != 0) {
-//sw case
             System.out.println("Por favor, elija una opción:");
             System.out.println("1. Crear una cuenta");
             System.out.println("2. Ingresa a tu cuenta");
@@ -24,10 +24,10 @@ public class Main {
 
             switch (option) {
                 case 1:
-                    System.out.println("Ingrese su número de cuenta:");
+                    System.out.println("Ingrese su usuario:");
                     numeroCuenta = scanner.next();
                     if (!cuentas.containsKey(numeroCuenta)) {
-                        System.out.println("Ingrese el saldo inicial:");
+                        System.out.println("Ingrese su contraseña:");
                         saldo = scanner.nextDouble();
                         cuentas.put(numeroCuenta, saldo);
                         System.out.println("¡Cuenta creada exitosamente!");
@@ -140,4 +140,3 @@ public class Main {
         }
     }
 }
-

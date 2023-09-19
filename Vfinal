@@ -1,9 +1,8 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
-
 @SuppressWarnings("ALL")
-public class Main {
+public class banco {
 
     public static void main(String[] args) {
         HashMap<String, Double> cuentas = new HashMap<>();
@@ -11,7 +10,7 @@ public class Main {
 
         int option = -1;
         int opcion = -1;
-        String numeroCuenta;
+        String usuario;
         double saldo = 0;
         System.out.println("Bienvenido a la Aplicación Bancaria Wolf Bank");
         while (option != 0) {
@@ -19,124 +18,95 @@ public class Main {
             System.out.println("1. Crear una cuenta");
             System.out.println("2. Ingresa a tu cuenta");
 
-
             option = scanner.nextInt();
 
             switch (option) {
                 case 1:
                     System.out.println("Ingrese su usuario:");
-                    numeroCuenta = scanner.next();
-                    if (!cuentas.containsKey(numeroCuenta)) {
-                        System.out.println("Ingrese su contraseña:");
+                    usuario = scanner.next();
+                    if (!cuentas.containsKey(usuario)) {
+                        System.out.println("Ingrese su saldo inicial:");
                         saldo = scanner.nextDouble();
-                        cuentas.put(numeroCuenta, saldo);
+                        cuentas.put(usuario, saldo);
                         System.out.println("¡Cuenta creada exitosamente!");
                     } else {
-                        System.out.println("Ya existe una cuenta con este número.");
+                        System.out.println("Ya existe una cuenta con este usuario.");
                     }
                     break;
-
-            }
-            switch (option) {
                 case 2:
-                    System.out.println("ingresa tu usuario");
-                 String  User= scanner.next();
-                System.out.println("ingresa Contraseña ");
-                String  Password= scanner.next();;
-               String usuario="JuanDa";
-               String Contraseña="12345";
-                if (User.equals(usuario) && Password.equals(Contraseña)){
-               System.out.println("Bienvenido "+usuario);
-               while (opcion != 0) {
-//sw case
-               System.out.println("Por favor, elija una opción:");
+                    System.out.println("Ingresa tu usuario");
+                    usuario = scanner.next();
+                    System.out.println("Ingresa Contraseña ");
+                    String Password = scanner.next();
+                    if (cuentas.containsKey(usuario) && Password.equals("12345")) {
+                        System.out.println("Bienvenido " + usuario);
+                        while (opcion != 0) {
+                            System.out.println("Por favor, elija una opción:");
+                            System.out.println("1. Consultar saldo");
+                            System.out.println("2. Depositar dinero");
+                            System.out.println("3. Retirar dinero");
+                            System.out.println("4. Realizar transacción");
+                            System.out.println("0. Salir");
 
-               System.out.println("1. Consultar saldo");
-               System.out.println("2. Depositar dinero");
-               System.out.println("3. Retirar dinero");
-               System.out.println("4. Realizar transacción");
-               System.out.println("0. Salir");
+                            opcion = scanner.nextInt();
 
-               opcion = scanner.nextInt();
-
-
-
-               switch (opcion) {
-
-                case 1:
-                    System.out.println("Ingrese su número de cuenta:");
-                    numeroCuenta = scanner.next();
-                    if (cuentas.containsKey(numeroCuenta)) {
-                        saldo = cuentas.get(numeroCuenta);
-                        System.out.println("Su saldo es: " + saldo);
-                    } else {
-                        System.out.println("Cuenta no encontrada.");
-                    }
-                    break;
-                     case 2:
-                    System.out.println("Ingrese su número de cuenta:");
-                    numeroCuenta = scanner.next();
-                    if (cuentas.containsKey(numeroCuenta)) {
-                        System.out.println("Ingrese la cantidad a depositar:");
-                        double cantidadDeposito = scanner.nextDouble();
-                        saldo = cuentas.get(numeroCuenta) + cantidadDeposito;
-                        cuentas.put(numeroCuenta, saldo);
-                        System.out.println("¡Depósito realizado exitosamente!");
-                    } else {
-                        System.out.println("Cuenta no encontrada.");
-                    }
-                    break;
-                    case 3:
-                    System.out.println("Ingrese su número de cuenta:");
-                    numeroCuenta = scanner.next();
-                    if (cuentas.containsKey(numeroCuenta)) {
-                        System.out.println("Ingrese la cantidad a retirar:");
-                        double cantidadRetiro = scanner.nextDouble();
-                        saldo = cuentas.get(numeroCuenta);
-                        if (cantidadRetiro <= saldo) {
-                            saldo -= cantidadRetiro;
-                            cuentas.put(numeroCuenta, saldo);
-                            System.out.println("¡Retiro realizado exitosamente!");
-                        } else {
-                            System.out.println("Fondos insuficientes.");
+                            switch (opcion) {
+                                case 1:
+                                    System.out.println("Su saldo es: " + cuentas.get(usuario));
+                                    break;
+                                case 2:
+                                    System.out.println("Ingrese la cantidad a depositar:");
+                                    double cantidadDeposito = scanner.nextDouble();
+                                    saldo = cuentas.get(usuario) + cantidadDeposito;
+                                    cuentas.put(usuario, saldo);
+                                    System.out.println("¡Depósito realizado exitosamente!");
+                                    break;
+                                case 3:
+                                    System.out.println("Ingrese la cantidad a retirar:");
+                                    double cantidadRetiro = scanner.nextDouble();
+                                    saldo = cuentas.get(usuario);
+                                    if (cantidadRetiro <= saldo) {
+                                        saldo -= cantidadRetiro;
+                                        cuentas.put(usuario, saldo);
+                                        System.out.println("¡Retiro realizado exitosamente!");
+                                    } else {
+                                        System.out.println("Fondos insuficientes.");
+                                    }
+                                    break;
+                                case 4:
+                                    System.out.println("Ingrese la cuenta destinataria para la transacción:");
+                                    String cuentaDestino = scanner.next();
+                                    if (cuentas.containsKey(cuentaDestino)) {
+                                        System.out.println("Ingrese el valor a enviar:");
+                                        double cantidadTransaccion = scanner.nextDouble();
+                                        if (cantidadTransaccion <= cuentas.get(usuario)) {
+                                            saldo = cuentas.get(usuario) - cantidadTransaccion;
+                                            cuentas.put(usuario, saldo);
+                                            saldo = cuentas.get(cuentaDestino) + cantidadTransaccion;
+                                            cuentas.put(cuentaDestino, saldo);
+                                            System.out.println("Transacción realizada exitosamente.");
+                                        } else {
+                                            System.out.println("Fondos insuficientes para realizar la transacción.");
+                                        }
+                                    } else {
+                                        System.out.println("Cuenta destinataria no encontrada.");
+                                    }
+                                    break;
+                                case 0:
+                                    System.out.println("¡Gracias por usar la Aplicación Bancaria en Java!");
+                                    break;
+                                default:
+                                    System.out.println("Opción inválida.");
+                            }
+                            System.out.println();
                         }
                     } else {
-                        System.out.println("Cuenta no encontrada.");
+                        System.out.println("Credenciales incorrectas.");
                     }
                     break;
-                    case 4:
-                    System.out.println("Ingrese su número de cuenta:");
-                    numeroCuenta = scanner.next();
-                    if (cuentas.containsKey(numeroCuenta)) {
-                        System.out.println("Se ha encontrado su cuenta ");
-                        saldo = cuentas.get(numeroCuenta);
-                        System.out.println("Su saldo es: " + saldo);
-                        System.out.println("Ingrese la cuenta destinataria para la transacción:");
-                        double cantidadTransaccion = scanner.nextDouble();
-                        saldo = cuentas.get(numeroCuenta) + cantidadTransaccion;
-
-                        cuentas.put(numeroCuenta, saldo);
-                        System.out.println("Cuenta encontrada, ingrese el valor a enviar");
-                        saldo = cuentas.get(numeroCuenta) +(cantidadTransaccion + saldo);
-                    } else {
-                        System.out.println("Cuenta no encontrada, no se puede realizar el envio.");
-                    }
-
-                    break;
-                      case 0:
-                    System.out.println("¡Gracias por usar la Aplicación Bancaria en Java!");
-                    break;
-                    default:
+                default:
                     System.out.println("Opción inválida.");
-                }
-               System.out.println();
-               }} else if (User.equals(usuario) && !Password.equals(Contraseña)) {
-            System.out.println("Contraseña incorrecta");
-             } else if (!User.equals(usuario) && Password.equals(Contraseña)) {
-            System.out.println("El usuario no existe");
-
-        }
-}
+            }
         }
     }
 }

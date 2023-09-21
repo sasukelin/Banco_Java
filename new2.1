@@ -1,0 +1,124 @@
+package javaapplication3;
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class JavaApplication3 {
+
+    public static void main(String[] args) {
+        HashMap<String, Double> cuentas = new HashMap<>();
+        Scanner scanner = new Scanner(System.in);
+
+        int option = -1;
+        String usuario;
+        double saldo = 0;
+        System.out.println("Bienvenido a la Aplicación Bancaria Wolf Bank");
+
+        while (option != 0) {
+            System.out.println("Por favor, elija una opción:");
+            System.out.println("1. Crear una cuenta");
+            System.out.println("2. Ingresar a tu cuenta");
+            System.out.println("0. Salir del programa");
+
+            option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    System.out.println("Ingrese su usuario:");
+                    usuario = scanner.next();
+                    if (!cuentas.containsKey(usuario)) {
+                        System.out.println("Ingrese su saldo inicial:");
+                        saldo = scanner.nextDouble();
+                        cuentas.put(usuario, saldo);
+                        System.out.println("¡Cuenta creada exitosamente!");
+                    } else {
+                        System.out.println("Ya existe una cuenta con este usuario.");
+                    }
+                    break;
+                case 2:
+                    System.out.println("Ingresa tu usuario:");
+                    usuario = scanner.next();
+                    System.out.println("Ingresa Contraseña:");
+                    String Password = scanner.next();
+                    if (cuentas.containsKey(usuario) && Password.equals("12345")) {
+                        System.out.println("Bienvenido " + usuario);
+                        int opcion = -1;
+                        while (opcion != 0) {
+                            System.out.println("Por favor, elija una opción:");
+                            System.out.println("1. Consultar saldo");
+                            System.out.println("2. Ingresar dinero");
+                            System.out.println("3. Retirar dinero");
+                            System.out.println("4. Realizar una transacción");
+                            System.out.println("0. Salir");
+
+                            opcion = scanner.nextInt();
+
+                            switch (opcion) {
+                                case 1:
+                                    System.out.println("Su saldo es: " + cuentas.get(usuario));
+                                    break;
+                                case 2:
+                                    System.out.println("Ingrese la cantidad a depositar:");
+                                    double cantidadDeposito = scanner.nextDouble();
+                                    saldo = cuentas.get(usuario) + cantidadDeposito;
+                                    cuentas.put(usuario, saldo);
+                                    System.out.println("¡Depósito realizado exitosamente!");
+                                    break;
+                                case 3:
+                                    System.out.println("Ingrese la cantidad a retirar:");
+                                    double cantidadRetiro = scanner.nextDouble();
+                                    saldo = cuentas.get(usuario);
+                                    if (cantidadRetiro <= saldo) {
+                                        saldo -= cantidadRetiro;
+                                        cuentas.put(usuario, saldo);
+                                        System.out.println("¡Retiro realizado exitosamente!");
+                                    } else {
+                                        System.out.println("Fondos insuficientes.");
+                                    }
+                                    break;
+                                case 4:
+                                    System.out.println("Ingrese la cuenta destinataria para la transacción:");
+                                    String destinatario = scanner.next();
+                                    if (cuentas.containsKey(destinatario)) {
+                                        System.out.println("Ingrese el valor a enviar:");
+                                        double cantidadTransaccion = scanner.nextDouble();
+
+                                        if (cantidadTransaccion <= saldo) {
+                                            saldo -= cantidadTransaccion;
+                                            cuentas.put(usuario, saldo);
+
+                                            double saldoDestinatario = cuentas.get(destinatario);
+                                            saldoDestinatario += cantidadTransaccion;
+                                            cuentas.put(destinatario, saldoDestinatario);
+
+                                            System.out.println("Transacción realizada exitosamente.");
+                                        } else {
+                                            System.out.println("Fondos insuficientes para realizar la transacción.");
+                                        }
+                                    } else {
+                                        System.out.println("Cuenta destinataria no encontrada.");
+                                    }
+                                    break;
+                                case 0:
+                                    System.out.println("Volviendo al menú principal.");
+                                    break;
+                                default:
+                                    System.out.println("Opción inválida.");
+                            }
+                            System.out.println();
+                        }
+                    } else if (cuentas.containsKey(usuario) && !Password.equals("12345")) {
+                        System.out.println("Contraseña incorrecta");
+                    } else if (!cuentas.containsKey(usuario) && Password.equals("12345")) {
+                        System.out.println("El usuario no existe");
+                    }
+                    break;
+                case 0:
+                    System.out.println("¡Gracias por usar la Aplicación Bancaria en Java!");
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
+            }
+        }
+    }
+}
